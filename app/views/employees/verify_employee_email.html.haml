@@ -1,0 +1,50 @@
+.modal-header
+  %h4.modal-title
+    Verify OTP
+  %h4.red
+    * OTP sent on your given email.
+.modal-body
+  .row
+    .col-lg-3.text-bold Email :
+    .col-lg-9= @email
+    .col-lg-3.text-bold OTP :
+    .col-lg-9
+      %input#email-otp.form-control{name: "email[otp]", placeholder: "Enter OTP", required: "required", type: "number", value: ""}
+    #otp-error.red
+      Plese enter valid OTP.
+  .row
+    .modal-footer
+      %button#otp-form.btn.btn-primary.col-md-offset-5{type: "button"} Ok
+
+:javascript
+  $(document).ready(function() {
+    $('#otp-error').hide()
+    $('#otp-form').click(function() {
+      var valuesToSubmit = $(this).serialize();
+      otp = $('#email-otp').val()
+      email = '#{@email}'
+      url = '/employees/check_otp'
+
+      if (otp) {
+        request = $.ajax({
+            type: "PATCH",
+            url: url,
+            data: {email: email, otp: otp},
+            dataType: "JSON"
+        });
+
+        request.done(function(data){
+          if (data['status'] == 200) {
+            $('#verify-otp').modal('hide');
+            $('.verify-true').hide()
+            $('.email-verify').show()
+            $('.verify-available').hide()
+            $('#verify-button').addClass('disabled')
+            $('#verify-button').removeClass('active')
+          } else {
+            $('#otp-error').show()
+          }
+        });
+      }
+    });
+  });

@@ -1,0 +1,33 @@
+.page-title
+  .title_left
+    %h3 Employees
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        %h2 Employees
+        .clearfix
+      .x_content
+        .row
+          .col-sm-12.col-xs-12.col-md-12
+            %table.table.table-striped.projects
+              %thead
+                %tr
+                  %th #
+                  %th Name
+                  %th Email
+                  %th Contact Number
+                  %th Disabled
+              %tbody
+                - @employees.each do |employee|
+                  %tr
+                    %td= employee.id
+                    %td= employee.try(:name)
+                    %td= employee.email
+                    %td= employee.contact_number
+                    %td= employee.disabled
+                    %td.text-right
+                      .btn-group
+                        = link_to 'Show', admin_employee_path(employee), class: 'btn btn-xs btn-primary', type:'button'
+                        - @data = employee.disabled == true ? ["success", "Enable"] : ["danger", "Disable"]
+                        %a{class: "btn-#{@data[0]} btn btn-xs", "data-confirm": "Are you sure ?", "data-method": "delete", href: "#{admin_employee_path(employee, value: "disabled")}"}= @data[1]

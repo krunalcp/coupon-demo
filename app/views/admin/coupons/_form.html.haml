@@ -1,0 +1,36 @@
+= form_for([:admin, coupon] , html: { class: "form-horizontal form-label-left"}) do |f|
+  %h4 Coupon Details
+  %div{class: "form-group #{has_error(coupon.errors, :code)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Code
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_field :code, placeholder: 'Code', required: true, class: 'form-control col-md-7 col-xs-12'
+    = print_error(coupon.errors, :code)
+  %div{class: "form-group #{has_error(coupon.errors, :expiry_date)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Expiry Date
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_field :expiry_date, placeholder: 'Expiry Date', required: true, class: 'form-control col-md-7 col-xs-12 datetimepicker'
+    = print_error(coupon.errors, :expiry_date)
+  %div{class: "form-group #{has_error(coupon.errors, :vendor)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Vendor
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_field :vendor, placeholder: 'Vendor', required: true, class: 'form-control col-md-7 col-xs-12'
+    = print_error(coupon.errors, :vendor)
+  %div{class: "form-group #{has_error(coupon.errors, :description)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Description
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_area :description, placeholder: 'Description' , class: 'form-control col-md-7 col-xs-12', cols: 20, rows: 10
+    = print_error(coupon.errors, :description)
+  %span.clearfix
+  .ln_solid
+
+  .form-group
+    .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+      = link_to "Cancel", admin_coupons_path, class: "btn btn-primary"
+      = f.submit "Save", class: "btn btn-success"

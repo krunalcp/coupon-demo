@@ -1,0 +1,49 @@
+= form_for([:admin, company] , html: { class: "form-horizontal form-label-left"}) do |f|
+  %h4 Company Details
+  %div{class: "form-group #{has_error(company.errors, :name)}"}
+    .control-label.col-md-3.col-sm-3.col-xs-12
+      Name
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_field :name, placeholder: 'Name', required: true, class: 'form-control col-md-7 col-xs-12'
+    =print_error(company.errors, :name)
+
+  %div{class: "form-group #{has_error(company.errors, :email)}"}
+    .control-label.col-md-3.col-sm-3.col-xs-12
+      Email
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.email_field :email, placeholder: 'Email', required: true, class: 'form-control col-md-7 col-xs-12'
+    = print_error(company.errors, :email)
+
+  %div{class: "form-group #{has_error(company.errors, :contact_number)}"}
+    .control-label.col-md-3.col-sm-3.col-xs-12
+      Contact Number
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_field :contact_number, placeholder: 'Contact Number', required: true, class: 'form-control col-md-7 col-xs-12'
+    = print_error(company.errors, :contact_number)
+
+  %div{class: "form-group #{has_error(company.errors, :domain)}"}
+    .control-label.col-md-3.col-sm-3.col-xs-12
+      Domain
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_field :domain, placeholder: 'Domain', class: 'form-control col-md-7 col-xs-12', required: true
+    = print_error(company.errors, :domain)
+
+  %div{class: "form-group #{has_error(company.errors, :address)}"}
+    .control-label.col-md-3.col-sm-3.col-xs-12
+      Address
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_area :address, placeholder: 'Address', class: 'form-control col-md-7 col-xs-12', cols: 20, rows: 10
+    = print_error(company.errors, :address)
+
+  %span.clearfix
+
+  .ln_solid
+
+  .form-group
+    .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+      = link_to "Cancel", admin_companies_path, class: "btn btn-primary"
+      = f.submit "Save", class: "btn btn-success"

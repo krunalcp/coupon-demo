@@ -1,0 +1,29 @@
+.page-title
+  .title_left
+    %h3 Coupons
+.clearfix
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        %h2
+          Coupon -
+          %small
+            = @coupon.code
+        .nav.navbar-right
+          %a.btn.btn-sm.btn-primary{href: admin_coupons_path} Coupons
+          = link_to 'Edit', edit_admin_coupon_path(@coupon), class: "btn btn-sm btn-primary"
+        .clearfix
+      .x_content
+        .row
+          .col-sm-6
+            %h4 Coupon Details
+            %dl.dl-horizontal
+              %dt Code:
+              %dd= @coupon.code
+              %dt Expiry Date:
+              %dd= @coupon.expiry_date
+              %dt Vendor:
+              %dd= @coupon.vendor
+              %dt Description:
+              %dd= @coupon.description

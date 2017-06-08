@@ -1,0 +1,35 @@
+.page-title
+  .title_left
+    %h3 Company Coupons
+.clearfix
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        %h2
+          Company Coupon -
+          %small
+            = @company_coupon.company.try(:name)
+        .nav.navbar-right
+          %a.btn.btn-sm.btn-primary{href: admin_company_coupons_path} Company Coupons
+          = link_to 'Edit', edit_admin_company_coupon_path(@company_coupon), class: "btn btn-sm btn-primary"
+        .clearfix
+      .x_content
+        .row
+          .col-sm-6
+            %h4 Company Coupon Details
+            %dl.dl-horizontal
+              %dt Company:
+              %dd= @company_coupon.company.try(:name)
+              %dt Number Of Coupon:
+              %dd= @company_coupon.number_of_coupon
+              %dt Start Date:
+              %dd= @company_coupon.start_date
+              %dt End Date:
+              %dd= @company_coupon.end_date
+            %h4 Company Coupon Rule Details
+            %dl.dl-horizontal
+              %dt Allowed Coupon:
+              %dd= @company_coupon.try(:company_coupon_rule).try(:allowed_coupon)
+              %dt Duration:
+              %dd= @company_coupon.try(:company_coupon_rule).try(:duration)

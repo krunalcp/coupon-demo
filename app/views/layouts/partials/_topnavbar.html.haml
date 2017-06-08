@@ -1,0 +1,11 @@
+.top_nav
+  .nav_menu
+    %nav
+      .nav.toggle
+        %a#menu_toggle
+          %i.fa.fa-bars
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          %a{"data-method": "delete", href: destroy_admin_session_path}
+            %i.fa.fa-sign-out
+            Log Out

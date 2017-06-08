@@ -1,0 +1,31 @@
+.col-md-3.left_col.menu_fixed
+  .left_col.scroll-view
+    .navbar.nav_title{style: "border: 0;"}
+      %a.site_title{href: "javascript:;"}
+        %i.fa.fa-paw
+        %span CPM
+    .clearfix
+    #sidebar-menu.main_menu_side.hidden-print.main_menu
+      .menu_section.active
+        %h3  
+        %ul.nav.side-menu
+          %li{class: "#{'current-page' if controller_name == 'home'}"}
+            %a{class: "#{'active' if controller_name == 'home'}", href: admin_dashboard_path}
+              %i.fa.fa-home
+              Home
+          %li{class: "#{'current-page' if controller_name == 'companies'}"}
+            %a{class: "#{'active' if controller_name == 'companies'}", href: admin_companies_path}
+              %i.fa.fa-home
+              Companies
+          %li{class: "#{'current-page' if controller_name == 'employees'}"}
+            %a{class: "#{'active' if controller_name == 'employees'}", href: admin_employees_path}
+              %i.fa.fa-user
+              Employees
+          %li{class: "#{'current-page' if controller_name == 'coupons'}"}
+            %a{class: "#{'active' if controller_name == 'coupons'}", href: admin_coupons_path}
+              %i.fa.fa-user
+              Coupons
+          %li{class: "#{'current-page' if controller_name == 'company_coupons'}"}
+            %a{class: "#{'active' if controller_name == 'company_coupons'}", href: admin_company_coupons_path}
+              %i.fa.fa-user
+              Company Coupons

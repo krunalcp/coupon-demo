@@ -1,0 +1,35 @@
+.page-title
+  .title_left
+    %h3 Companies
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        %h2 Companies
+        .nav.navbar-right
+          %a.btn.btn-sm.btn-primary{href: new_admin_company_path} New Company
+        .clearfix
+      .x_content
+        .row
+          .col-sm-12.col-xs-12.col-md-12
+            %table.table.table-striped.projects
+              %thead
+                %tr
+                  %th #
+                  %th Name
+                  %th Email
+                  %th Contact Number
+                  %th Domain
+              %tbody
+                - @companies.each do |company|
+                  %tr
+                    %td= company.id
+                    %td= company.name
+                    %td= company.email
+                    %td= company.contact_number
+                    %td= company.domain
+                    %td.text-right
+                      .btn-group
+                        = link_to 'Show', admin_company_path(company), class: 'btn btn-xs btn-primary', type:'button'
+                        = link_to 'Edit', edit_admin_company_path(company), class: 'btn btn-xs btn-primary', type:'button'
+                        = link_to 'Destroy', admin_company_path(company), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger', type:'button'

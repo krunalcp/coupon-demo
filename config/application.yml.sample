@@ -1,0 +1,31 @@
+#
+## Database Secrets
+#
+DATABASE_ADAPTER: ''
+DATABASE_ENCODING: ''
+DATABASE_POOL: ''
+DATABASE_NAME: ''
+DATABASE_USERNAME: ''
+DATABASE_PASSWORD: ''
+DATABASE_HOST: ''
+
+#
+## Application Secrets
+#
+SECRET_KEY_BASE: ''
+DEVISE_SECRET_KEY: ''
+
+#
+## SMTP Configuration
+#
+FROM_EMAIL: ''
+SMTP_ADDRESS: ''
+SMTP_PORT: ''
+SMTP_USER_NAME: ''
+SMTP_PASSWORD: ''
+SMTP_AUTHENTICATION: 'PLAIN'
+
+#
+## Production Environment Variable
+#
+RAILS_SERVE_STATIC_FILES: ''

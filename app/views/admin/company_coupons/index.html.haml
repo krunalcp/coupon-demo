@@ -1,0 +1,35 @@
+.page-title
+  .title_left
+    %h3 Company Coupons
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        %h2 Company Coupons
+        .nav.navbar-right
+          %a.btn.btn-sm.btn-primary{href: new_admin_company_coupon_path} New Company Coupon
+        .clearfix
+      .x_content
+        .row
+          .col-sm-12.col-xs-12.col-md-12
+            %table.table.table-striped.projects
+              %thead
+                %tr
+                  %th #
+                  %th Company
+                  %th Number Of Coupon
+                  %th Start Date
+                  %th End Date
+              %tbody
+                - @company_coupons.each do |company_coupon|
+                  %tr
+                    %td= company_coupon.id
+                    %td= company_coupon.company.try(:name)
+                    %td= company_coupon.number_of_coupon
+                    %td= company_coupon.start_date
+                    %td= company_coupon.end_date
+                    %td.text-right
+                      .btn-group
+                        = link_to 'Show', admin_company_coupon_path(company_coupon), class: 'btn btn-xs btn-primary', type:'button'
+                        = link_to 'Edit', edit_admin_company_coupon_path(company_coupon), class: 'btn btn-xs btn-primary', type:'button'
+                        = link_to 'Destroy', admin_company_coupon_path(company_coupon), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger', type:'button'

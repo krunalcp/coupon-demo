@@ -1,0 +1,141 @@
+= form_for(employee, html: { class: "form-horizontal form-label-left"}) do |f|
+  %h4 Employee Details
+  - flash.each do |key, value|
+    %div{class: "alert alert-#{key}"}= value
+
+  %div{class: "form-group #{has_error(employee.errors, :prefix)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Prefix
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.select :prefix, options_for_select(PREFIX, employee.prefix), {prompt: 'Prefix'}, required: true, class: 'form-control col-md-7 col-xs-12'
+    = print_error(employee.errors, :prefix)
+  %div{class: "form-group #{has_error(employee.errors, :first_name)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      First Name
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_field :first_name, placeholder: 'First Name', required: true, class: 'form-control col-md-7 col-xs-12'
+    = print_error(employee.errors, :first_name)
+  %div{class: "form-group #{has_error(employee.errors, :middle_name)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Middle Name
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_field :middle_name, placeholder: 'Middle Name', required: true, class: 'form-control col-md-7 col-xs-12'
+    = print_error(employee.errors, :middle_name)
+  %div{class: "form-group #{has_error(employee.errors, :last_name)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Last Name
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_field :last_name, placeholder: 'Last Name', required: true, class: 'form-control col-md-7 col-xs-12'
+    = print_error(employee.errors, :last_name)
+  %div{class: "form-group #{has_error(employee.errors, :email)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Email
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.email_field :email, placeholder: 'Email', class: 'form-control col-md-7 col-xs-12'
+      .verify-true.col-md-3
+        = link_to '#', title: 'Show', data: {toggle: 'modal', target: '.verify-otp', 'verify-url': verify_employee_email_employees_path}, id: "verify-button", class: 'btn btn-info btn-xs' do
+          Verify
+      .verify-available.col-md-7.green
+        %h5 You'r email is already verified please continue
+      .email-verify.col-md-7.green
+        %h5 You'r email is successfully verified
+      .email-invalid.col-md-7.red
+        %h5 please enter valide email.
+    = print_error(employee.errors, :email)
+  %div{class: "form-group #{has_error(employee.errors, :contact_number)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Contact Number
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_field :contact_number, placeholder: 'Contact Number', required: true, class: 'form-control col-md-7 col-xs-12'
+    = print_error(employee.errors, :contact_number)
+  %div{class: "form-group #{has_error(employee.errors, :address)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Address
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_area :address, placeholder: 'Address' , class: 'form-control col-md-7 col-xs-12', cols: 20, rows: 10
+    = print_error(employee.errors, :address)
+  %span.clearfix
+  .ln_solid
+
+  .form-group
+    .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+      = link_to 'Cancel', root_path, class: 'btn btn-primary'
+      = f.submit 'Save', class: 'btn btn-success'
+
+#verify-otp.modal.fade.verify-otp{"aria-hidden": "true", "aria-labelledby": "mySmallModalLabel", role: "dialog", tabindex: "-1"}
+  .modal-dialog
+    .modal-content
+
+:javascript
+  $(document).ready(function() {
+    $('#verify-button').addClass('disabled')
+    $('.verify-true').hide()
+    $('.email-verify').hide()
+    $('.verify-available').hide()
+    $('.email-invalid').hide()
+    $('#employee_email').focusout(function(){
+      email = $(this).val()
+      validateEmail(email)
+    })
+
+    function validateEmail(employee_email) {
+      var email = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      verify = email.test(employee_email);
+      if (verify == true) {
+        var request = $.ajax({
+          url: '/employees/email_is_valide',
+          type: 'get',
+          data: { email: employee_email },
+          dataType: 'JSON'
+        });
+        request.done(function(data){
+          if (data['data'] == true) {
+            $('.verify-true').show()
+            $('.email-verify').hide()
+            $('.verify-available').hide()
+            $('#verify-button').addClass('active')
+            $('#verify-button').removeClass('disabled')
+            $('.email-invalid').hide()
+          } else if (data['data'] == 'available') {
+            $('.verify-true').hide()
+            $('.email-verify').hide()
+            $('.verify-available').show()
+            $('#verify-button').addClass('disabled')
+            $('#verify-button').removeClass('active')
+            $('.email-invalid').hide()
+          } else if (data['data'] == false) {
+            $('.email-invalid').hide()
+            $('.verify-true').hide()
+            $('.email-verify').hide()
+            $('.verify-available').hide()
+            $('#verify-button').addClass('disabled')
+            $('#verify-button').removeClass('active')
+          }
+        });
+      } else {
+        $('.email-invalid').show()
+        $('.verify-true').hide()
+        $('.email-verify').hide()
+        $('.verify-available').hide()
+        $('#verify-button').addClass('disabled')
+        $('#verify-button').removeClass('active')
+      }
+      
+    }
+
+    $('.verify-otp').on('show.bs.modal', function(e) {
+      var path = $(e.relatedTarget).data('verify-url');
+      email = $('#employee_email').val()
+      url = path+'?email='+email
+      if (email){
+        $(".verify-otp .modal-content").load(url);
+      }
+    });
+
+  })

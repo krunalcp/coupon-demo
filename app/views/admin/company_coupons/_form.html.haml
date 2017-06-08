@@ -1,0 +1,106 @@
+= form_for([:admin, company_coupon] , html: { class: "form-horizontal form-label-left"}) do |f|
+  %h4 Company Coupon Details
+  %div{class: "form-group #{has_error(company_coupon.errors, :company_id)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Company
+    .col-md-6.col-sm-6.col-xs-12
+      = f.select :company_id, options_for_select(list_for_companies, company_coupon.company_id), {prompt: 'Select Company'}, required: true, class: 'form-control col-md-7 col-xs-12'
+    = print_error(company_coupon.errors, :company_id)
+
+  %div{class: "form-group #{has_error(company_coupon.errors, :number_of_coupon)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Coupon
+    .col-md-6.col-sm-6.col-xs-12
+      = f.number_field :number_of_coupon, placeholder: '# Coupon', required: true, class: 'form-control col-md-7 col-xs-12'
+    = print_error(company_coupon.errors, :number_of_coupon)
+
+
+  %div{class: "form-group #{has_error(company_coupon.errors, :start_date)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Start Date
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_field :start_date, placeholder: 'Start Date', required: true, class: 'form-control col-md-7 col-xs-12', id: 'start_date'
+    = print_error(company_coupon.errors, :start_date)
+
+
+  %div{class: "form-group #{has_error(company_coupon.errors, :end_date)}"}
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      End Date
+      %span.required *
+    .col-md-6.col-sm-6.col-xs-12
+      = f.text_field :end_date, placeholder: 'End Date', required: true, class: 'form-control col-md-7 col-xs-12', id: 'end_date'
+    = print_error(company_coupon.errors, :end_date)
+
+  %h4 Company Coupon Rule Details
+  .form-group
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Allow Coupon
+    .col-md-6.col-sm-6.col-xs-12
+      = select_tag 'company_coupon_rule[allow_coupon]', options_for_select(ALLOW_COUPON, company_coupon.new_record? ? '' : company_coupon.company_coupon_rule.allowed_coupon ), prompt: 'Select Allow Coupon', required: true, class: 'form-control col-md-7 col-xs-12'
+      (Per Employee)
+
+  .form-group
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Duration
+    .col-md-6.col-sm-6.col-xs-12
+      = select_tag 'company_coupon_rule[duration]', options_for_select(DURATION, company_coupon.new_record? ? '' : company_coupon.company_coupon_rule.duration ), prompt: 'Select Duration', required: true, class: 'form-control col-md-7 col-xs-12'
+
+
+  #rule_custom_duration.form-group
+    %label.control-label.col-md-3.col-sm-3.col-xs-12
+      Custom Duration
+    .col-md-6.col-sm-6.col-xs-12
+      = number_field_tag 'company_coupon_rule[custom_duration]', '', placeholder: 'Custom Duration', required: true, class: 'form-control col-md-7 col-xs-12'
+    = print_error(company_coupon.errors, :number_of_coupon)
+
+  %span.clearfix
+  .ln_solid
+
+  .form-group
+    .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+      = link_to 'Cancel', admin_company_coupons_path, class: "btn btn-primary"
+      = f.submit "Save", class: "btn btn-success"
+
+:javascript
+  $(document).ready(function() {
+
+    $("#start_date").datetimepicker({
+      format: 'YYYY-MM-DD HH:mm',
+      icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-arrow-up",
+        down: "fa fa-arrow-down",
+        previous: "fa fa-arrow-left",
+        next: "fa fa-arrow-right"
+      }
+    });
+    $("#end_date").datetimepicker({
+      format: 'YYYY-MM-DD HH:mm',
+      icons: {
+        time: "fa fa-clock-o",
+        date: "fa fa-calendar",
+        up: "fa fa-arrow-up",
+        down: "fa fa-arrow-down",
+        previous: "fa fa-arrow-left",
+        next: "fa fa-arrow-right"
+      }
+    });
+
+    set_custom_duration($('#company_coupon_rule_duration').val());
+
+    $('#company_coupon_rule_duration').change(function(){
+      set_custom_duration($(this).val());
+    })
+
+    function set_custom_duration(duration) {
+      if (duration == "custom") {
+        $('#rule_custom_duration').show();
+        $('#company_coupon_rule_custom_duration').attr('disabled', false);
+      } else {
+        $('#rule_custom_duration').hide();
+        $('#company_coupon_rule_custom_duration').attr('disabled', true);
+      }
+    }
+  });

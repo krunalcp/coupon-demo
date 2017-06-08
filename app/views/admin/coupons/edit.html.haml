@@ -1,0 +1,14 @@
+.page-title
+  .title_left
+    %h3 Coupon
+.clearfix
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        %h2 Edit Coupon
+        .nav.navbar-right
+          %a.btn.btn-sm.btn-primary{href: admin_coupons_path} Coupons
+        .clearfix
+      .x_content
+        = render 'form', coupon: @coupon

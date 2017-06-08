@@ -1,0 +1,5 @@
+%h3 Congratulation you have a assign new coupon
+%h5 Coupon code
+= @employee_coupon.try(:coupon).try(:code)
+%h5 Expiry Date
+= @employee_coupon.try(:coupon).try(:expiry_date)

@@ -1,0 +1,26 @@
+.page-title
+  .title_left
+    %h3 Coupon
+.clearfix
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        %h2 Import Coupons
+        .nav.navbar-right
+          = link_to 'Coupons', admin_coupons_path, class: "btn btn-sm btn-primary"
+        .clearfix
+      .x_content
+        = form_tag(create_import_coupons_admin_coupons_path, multipart: true, html: { class: 'form-horizontal form-label-left'}) do |f|
+          %h4 Coupon Details
+          %label.control-label.col-md-3.col-sm-3.col-xs-12
+            File
+            %span.required *
+          .col-md-6.col-sm-6.col-xs-12
+            = file_field_tag :file, placeholder: 'File', required: true, class: 'form-control col-md-7 col-xs-12'
+        %span.clearfix
+        .ln_solid
+        .form-group
+          .col-md-6.col-sm-6.col-xs-12.col-md-offset-3
+            = link_to 'Cancel', admin_coupons_path, class: "btn btn-primary"
+            %button.btn.btn-success{"data-disable-with": "Saving...", type: "submit"} Save

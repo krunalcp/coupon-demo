@@ -1,0 +1,31 @@
+.page-title
+  .title_left
+    %h3 Companies
+.clearfix
+.row
+  .col-md-12.col-sm-12.col-xs-12
+    .x_panel
+      .x_title
+        %h2
+          Company -
+          %small
+            = @company.name
+        .nav.navbar-right
+          %a.btn.btn-sm.btn-primary{:href => admin_companies_path} Companies
+          = link_to 'Edit', edit_admin_company_path(@company), class: "btn btn-sm btn-primary"
+        .clearfix
+      .x_content
+        .row
+          .col-sm-6
+            %h4 Company Details
+            %dl.dl-horizontal
+              %dt Name:
+              %dd= @company.name
+              %dt Email:
+              %dd= @company.email
+              %dt Contact Number:
+              %dd= @company.contact_number
+              %dt Domain:
+              %dd= @company.domain
+              %dt Address:
+              %dd= @company.address
