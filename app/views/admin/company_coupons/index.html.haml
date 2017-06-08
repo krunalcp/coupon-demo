@@ -17,7 +17,8 @@
                 %tr
                   %th #
                   %th Company
-                  %th Number Of Coupon
+                  %th #Coupons
+                  %th Used Coupons
                   %th Start Date
                   %th End Date
               %tbody
@@ -26,6 +27,7 @@
                     %td= company_coupon.id
                     %td= company_coupon.company.try(:name)
                     %td= company_coupon.number_of_coupon
+                    %td= company_coupon.used_coupon
                     %td= company_coupon.start_date
                     %td= company_coupon.end_date
                     %td.text-right

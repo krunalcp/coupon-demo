@@ -84,10 +84,9 @@ class Employee < ApplicationRecord
                           date
                         ).first
 
-      if !company_coupon.blank? && company_coupon.number_of_coupon > 0
+      if !company_coupon.blank? && company_coupon.used_coupon < company_coupon.number_of_coupon
         rule = CompanyCouponRule.find_by_company_coupon_id(company_coupon.id)
         unless rule.blank?
-
           employee_coupan_ids = EmployeeCoupon.all.pluck(:coupon_id)
           coupon = Coupon.where.not(id: employee_coupan_ids).first
           employee_coupons = self.employee_coupons.where(company_coupon_id: company_coupon.id).order(:created_at)
@@ -111,7 +110,7 @@ class Employee < ApplicationRecord
 
           if create_coupon
             self.employee_coupons.create(coupon_id: coupon.id, company_coupon_id: company_coupon.id)
-            company_coupon.update_column(:number_of_coupon, company_coupon.number_of_coupon - 1)
+            company_coupon.update_column(:used_coupon, company_coupon.used_coupon + 1)
             success = true
           else
             success = false

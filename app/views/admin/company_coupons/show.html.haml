@@ -21,8 +21,10 @@
             %dl.dl-horizontal
               %dt Company:
               %dd= @company_coupon.company.try(:name)
-              %dt Number Of Coupon:
+              %dt Number Of Coupons:
               %dd= @company_coupon.number_of_coupon
+              %dt Used Coupons:
+              %dd= @company_coupon.used_coupon
               %dt Start Date:
               %dd= @company_coupon.start_date
               %dt End Date:
