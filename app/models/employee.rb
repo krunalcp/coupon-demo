@@ -147,11 +147,11 @@ class Employee < ApplicationRecord
   #
   def assign_company
     if self.new_record?
-      unless email.blank?
-        domain = email.split('@')
+      unless self.email.blank?
+        domain = self.email.split('@')
         company_domain = Company.find_by(domain: domain[1])
         unless company_domain.blank?
-          company_id = company_domain.id
+          self.company_id = company_domain.id
         else
           errors.add(:email, "Please enter valid email.")
         end
