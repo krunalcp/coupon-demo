@@ -30,6 +30,7 @@
                     %td= company.domain
                     %td.text-right
                       .btn-group
+                        = link_to 'Coupons', admin_company_coupons_path(company_id: company), class: 'btn btn-xs btn-info'
                         = link_to 'Show', admin_company_path(company), class: 'btn btn-xs btn-primary', type:'button'
                         = link_to 'Edit', edit_admin_company_path(company), class: 'btn btn-xs btn-primary', type:'button'
                         = link_to 'Destroy', admin_company_path(company), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-xs btn-danger', type:'button'
