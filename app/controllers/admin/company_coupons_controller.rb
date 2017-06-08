@@ -18,9 +18,14 @@ class Admin::CompanyCouponsController < Admin::AdminController
   #
   def index
     @per_page         = (params[:per_page].blank? ? PER_PAGE : params[:per_page])
+    conditions = []
+    if params[:company_id]
+      conditions[0] = 'company_id = ?'
+      conditions << params[:company_id]
+    end
     @company_coupons  = CompanyCoupon.includes(
                           :company
-                        ).all.page(params[:page]).per(@per_page)
+                        ).where(conditions).page(params[:page]).per(@per_page)
   end
 
   #

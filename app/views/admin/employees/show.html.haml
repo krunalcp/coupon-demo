@@ -15,7 +15,7 @@
         .clearfix
       .x_content
         .row
-          .col-sm-6
+          .col-sm-12
             %h4 Employee Details
             %dl.dl-horizontal
               %dt Name:
@@ -29,9 +29,12 @@
               %dt Address:
               %dd= @employee.address
             %h4 Employee Coupons Details
-            - @employee.employee_coupons.each do |employee_coupon|
-              %dl.dl-horizontal
-                %dt Code:
-                %dd= employee_coupon.coupon.code
-                %dt Subscribe Date:
-                %dd= employee_coupon.created_at
+            .col-sm-12.col-xs-12.col-md-12
+              %table.table.table-striped.projects
+                %tr
+                  %th Code:
+                  %th Subscribe Date:
+                - @employee.employee_coupons.each do |employee_coupon|
+                  %tr
+                    %td= employee_coupon.coupon.code
+                    %td= employee_coupon.created_at
